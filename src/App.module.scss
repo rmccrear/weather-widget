@@ -1,38 +1,41 @@
-.App {
+
+.weather-widget {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.weather-widget-inner-container {
+  width: 36em;
+  border: .5em solid #eee;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.weather-day {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
+  width: 5em;
+  background-color: #eeeeee;
+}
+
+.day-name {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: 1.5em;
 }
 
-.App-link {
-  color: #61dafb;
+.weather-icon {
+  width: 4em;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.weather-temp {
+  font-size: 2em;
+  color: gold;
+}
+
+.weather-widget-week {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background-color: #222;
+  justify-content: space-between;
 }
