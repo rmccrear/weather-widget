@@ -15,6 +15,11 @@ To use as a widget in an iFrame, you can use this code:
     <iframe style="width: 37em;" src="https://rmccrear.github.io/weather-widget/?location=new%20york%20city&apiKey=YOUR_API_KEY"></iframe>
 
 
+It will look something like this.
+
+![Example Screenshot](./docs/images/NYC-example.png)
+
+
 ## Contributing
 
 You can start a development version of this widget by cloning it. It is a Create React App, so you can start it in the normal way with...
