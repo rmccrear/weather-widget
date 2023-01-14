@@ -70,17 +70,28 @@ const weekMap : {[index: number] : string} = {
 
 function WeatherWidget() {
     const [weatherData, setWeatherData] = useState<WeatherData | undefined>();
+    const [errorMessage, setErrorMessage] = useState<string | undefined>();
     const dayOfWeek = (new Date()).getDay();
     useEffect((): void => {
         const queryApiKey = new URLSearchParams(window.location.search).get('apiKey');
         const queryLocation = new URLSearchParams(window.location.search).get('location');
         const weatherDataUri = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${queryLocation}?unitGroup=metric&key=${queryApiKey}&contentType=json&iconSet=icons1`;
-        if(queryApiKey && queryLocation) {
-            fetch(weatherDataUri).then((res) => res.json()).then((data) => {
-                setWeatherData(data);
-                console.log(data);
-            }).catch(e => console.log(e));
+        const effect = async () => {
+            if(queryApiKey && queryLocation) {
+                const res = await fetch(weatherDataUri);
+                if(res && res.status === 200) {
+                    const data = await res.json();
+                    setWeatherData(data);
+                    console.log(data);
+                }
+                else {
+                    const text = await res.text();
+                    setErrorMessage(text);
+                    console.error(text);
+                }
+            }
         }
+        effect();
     }, []);
 
     let dayCounter = dayOfWeek;
@@ -108,11 +119,15 @@ function WeatherWidget() {
             </>
         }
         { !weatherData &&
-            <div>
-            <h2>Welcome to Weather Widget</h2>
-            <div> This is a simple weather widget that displays the weather for the next 7 days. </div>
-            <div> To use this widget, add `apiKey` and `location` to the url query params for this page. </div>
-            <div> To sign up for an api key, visit <a href="https://www.visualcrossing.com/weather-api">https://www.visualcrossing.com/weather-api</a></div>
+            <div className={styles["instructions"]}>
+                <h2>Welcome to Weather Widget</h2>
+                <p> This is a simple weather widget that displays the weather for the next 7 days. </p>
+                <p> To use this widget, add `apiKey` and `location` to the url query params for this page. </p>
+                <p> To sign up for an api key, visit <a href="https://www.visualcrossing.com/weather-api">https://www.visualcrossing.com/weather-api</a></p>
+                {
+                    errorMessage && <div className={styles["error-message"]}><span> Error: {errorMessage} </span></div>
+
+                }
             </div>
         }
        </div>

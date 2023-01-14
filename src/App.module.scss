@@ -59,3 +59,16 @@
   background-color: #222;
   justify-content: space-between;
 }
+
+.error-message {
+  margin: 1em auto;
+  padding: 1em;
+  border: darkred 2px solid;
+  border-radius: 25px;
+  background-color: darksalmon;
+}
+
+.instructions {
+  margin: 0;
+  padding: 1em;
+}
