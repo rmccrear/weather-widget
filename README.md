@@ -10,6 +10,11 @@ Add your own `apiKey` from [visualcrossing](https://visualcrossing.com) to the u
 
     https://rmccrear.github.io/weather-widget?apiKey=YOUR_API_KEY&location=New%20York%20City%20NY
 
+To use as a widget in an iFrame, you can use this code:
+
+    <iframe style="width: 37em;" src="https://rmccrear.github.io/weather-widget/?location=new%20york%20city&apiKey=YOUR_API_KEY"></iframe>
+
+
 ## Contributing
 
 You can start a development version of this widget by cloning it. It is a Create React App, so you can start it in the normal way with...
