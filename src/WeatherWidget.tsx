@@ -12,6 +12,7 @@ interface WeatherData {
     resolvedAddress: string,
     timezone: string,
     description: string,
+    currentConditions: Day,
     days: Day[]
 }
 
@@ -21,16 +22,24 @@ interface Day {
   tempmin: number,
   temp: number,
   icon: string,
-  preciptype: string
+  preciptype: string,
+  resolvedAddress: string,
+  datetimeEpoch: number
 }
 
-const days = (data: WeatherData) : Day[] => {
-    return data.days;
-}
+const days = (data: WeatherData) : Day[] => data.days;
 
 const temp = (day: Day) : number => day.temp;
 
 const icon = (day: Day) : string => day.icon;
+
+const location = (data: WeatherData) : string => data.resolvedAddress;
+
+const date = (day: Day) : string => {
+    const date = new Date(day.datetimeEpoch * 1000);
+    const localeFormatted = new Intl.DateTimeFormat().format(date)
+    return localeFormatted;
+}
 
 function DisplayDay({day, dayOfWeek}: {day: Day, dayOfWeek: string}) {
     return (<div className={styles["weather-day"]}>
@@ -60,7 +69,7 @@ const weekMap : {[index: number] : string} = {
 };
 
 function WeatherWidget() {
-    const [weatherData, setWeatherData] = useState<WeatherData>();
+    const [weatherData, setWeatherData] = useState<WeatherData | undefined>();
     const dayOfWeek = (new Date()).getDay();
     useEffect((): void => {
         const queryApiKey = new URLSearchParams(window.location.search).get('apiKey');
@@ -78,6 +87,15 @@ function WeatherWidget() {
     return (
         <div className={styles['weather-widget']}>
         { weatherData &&
+            <>
+            <div className={styles['header']}>
+                <div className={styles['weather-location']}>
+                    <h3>{location(weatherData)}</h3>
+                </div>
+                <div className={styles['weather-date']}>
+                    <h4>{date(weatherData.currentConditions)}</h4>
+                </div>
+            </div>
             <div className={styles['weather-widget-inner-container']}>
                 <div className={styles['weather-widget-week']}>
                     {
@@ -87,6 +105,7 @@ function WeatherWidget() {
                     }
                 </div>
             </div>
+            </>
         }
         { !weatherData &&
             <div>

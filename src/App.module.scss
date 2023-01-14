@@ -1,6 +1,26 @@
 
 .weather-widget {
-  text-align: center;
+  text-align: left;
+  width: 37em;
+}
+
+.weather-widget .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 .5em;
+}
+
+.weather-widget .header h3 {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  margin: 0;
+}
+.weather-widget .header h4 {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: small;
+  margin: 0;
+  text-align: right;
 }
 
 .weather-widget-inner-container {
