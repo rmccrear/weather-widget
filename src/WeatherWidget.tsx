@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import WeatherIcons from './WeatherIcons';
 import styles from './App.module.scss';
 
+// import testWeatherData from './__fixtures__/testWeatherData';
 // const weatherData = JSON.parse(testWeatherData);
 
 interface WeatherData {
@@ -30,8 +31,6 @@ const days = (data: WeatherData) : Day[] => {
 const temp = (day: Day) : number => day.temp;
 
 const icon = (day: Day) : string => day.icon;
-
-const preciptype = (day: Day) : string => day.preciptype;
 
 function DisplayDay({day, dayOfWeek}: {day: Day, dayOfWeek: string}) {
     return (<div className={styles["weather-day"]}>
@@ -90,7 +89,12 @@ function WeatherWidget() {
             </div>
         }
         { !weatherData &&
-            <div> add `apiKey` and `location` to url query params </div>
+            <div>
+            <h2>Welcome to Weather Widget</h2>
+            <div> This is a simple weather widget that displays the weather for the next 7 days. </div>
+            <div> To use this widget, add `apiKey` and `location` to the url query params for this page. </div>
+            <div> To sign up for an api key, visit <a href="https://www.visualcrossing.com/weather-api">https://www.visualcrossing.com/weather-api</a></div>
+            </div>
         }
        </div>
     );
